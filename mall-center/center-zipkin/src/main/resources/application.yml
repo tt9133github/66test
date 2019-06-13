@@ -1,0 +1,77 @@
+spring:
+  application:
+    name: center-zipkin
+  profiles:
+    active: dev
+
+server:
+  port: 8103
+
+
+management:
+#zipkin启动报错无法访问的解决方法
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+  security:
+    enabled: false #关闭验证
+info: #/info请求的显示信息
+  app:
+    name: ${spring.application.name}
+    version: 1.0.0
+  build:
+    artifactId: '@project.artifactId@'
+    version: '@project.version@'
+
+---
+spring:
+  profiles: dev
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      #defaultZone: http://39.96.114.250:8100/eureka/
+      defaultZone: ${EUREKA_SERVICE_URL:http://admin:123456@127.0.0.1:8100}/eureka/
+
+zipkin:
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      cluster: docker-cluster
+      hosts: http://39.107.203.114:9200/
+      index: zipkin
+      index-shards: 5
+      index-replicas: 1
+
+
+---
+spring:
+  profiles: prod
+  rabbitmq:
+      host: 182.92.113.14
+      port: 5678
+      username: admin
+      password: sonicom2017pdds
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      #defaultZone: http://39.96.114.250:8100/eureka/
+      defaultZone: ${EUREKA_SERVICE_URL:http://admin:123456@127.0.0.1:8100}/eureka/
+
+zipkin:
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      cluster: docker-cluster
+      hosts: http://39.107.203.114:9200/
+      index: zipkin
+      index-shards: 5
+      index-replicas: 1
+
+

@@ -1,0 +1,31 @@
+{
+  "appenders":
+  [
+    {
+      "category":"console",
+      "type":"console"
+    },
+    {
+      "category":"log_access",
+      "type": "file",
+      "filename": "logs/log4j_access.log",
+      "maxLogSize": 10240000,
+      "backups": 4
+    },
+    {
+      "category":"log_date",
+      "type": "dateFile",
+      "filename": "logs/log4j_sys_date.log",
+      "alwaysIncludePattern": false,
+      "pattern": "-yyyy-MM-dd-hh.log",
+      "backups": 10
+    }
+  ],
+  "replaceConsole": true,
+  "levels":
+  {
+    "log_access":"ALL",
+    "console":"ALL",
+    "log_date":"ALL"
+  }
+}

@@ -1,0 +1,47 @@
+server:
+  port: 8200
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: backend-demo
+  servlet:
+    multipart:
+      max-file-size: 2000Mb
+      max-request-size: 2500Mb
+
+
+---
+spring:
+  profiles: dev
+
+eureka:
+  instance:
+    health-check-url-path: /actuator/health
+    prefer-ip-address: true
+    hostname: 127.0.0.1
+    lease-renewal-interval-in-seconds: 10 #续约更新时间间隔
+    lease-expiration-duration-in-seconds: 30 #续约到期时间
+  client:
+    healthcheck:
+      enabled: true #开启监控检查
+    registryFetchIntervalSeconds: 5
+
+
+---
+
+spring:
+  profiles: prod
+
+eureka:
+  instance:
+    health-check-url-path: /actuator/health
+    prefer-ip-address: true
+    hostname: 127.0.0.1
+    lease-renewal-interval-in-seconds: 10 #续约更新时间间隔
+    lease-expiration-duration-in-seconds: 30 #续约到期时间
+  client:
+    healthcheck:
+      enabled: true #开启监控检查
+    registryFetchIntervalSeconds: 5

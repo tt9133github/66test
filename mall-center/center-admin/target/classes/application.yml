@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: center-admin
+  profiles:
+    active: insecure
+
+server:
+  port: 8102
+
+# tag::configuration-eureka[]
+eureka:   #<1>
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    prefer-ip-address: true
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://admin:123456@localhost:8100/eureka/
+      #defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+      #defaultZone: ${EUREKA_SERVICE_URL:http://admin:123456@39.96.114.250:8100}/eureka/
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #<2>
+  endpoint:
+    health:
+      show-details: ALWAYS
+# end::configuration-eureka[]
+
+---
+spring:
+  profiles: insecure
+
+---
+spring:
+  profiles: secure
+  security:
+    user:
+      name: admin
+      password: 123456
+eureka:
+  instance:
+    metadata-map:
+      user.name: "user"         #These two are needed so that the server
+      user.password: "password" #can access the protected client endpoints

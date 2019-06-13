@@ -1,0 +1,12 @@
+[package]
+
+name = "update"
+version = "0.0.1"
+authors = ["Jorge Aparicio <japaricious@gmail.com>",
+           "Steve Klabnik <steve@steveklabnik.com>"]
+
+[dependencies]
+
+rustc-serialize = "*"
+regex = {version = "*", features = ["feature"]}
+local_crate = {path = "../local_crate"}

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.prism</groupId>
+		<artifactId>mall-backend</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<groupId>com.prism</groupId>
+	<artifactId>backend-parser</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>backend-parser</name>
+	<description>backend-parser project for Spring Boot</description>
+	<packaging>jar</packaging>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
+		<spring-boot.version>2.0.4.RELEASE</spring-boot.version>
+
+		<lombok.version>1.18.0</lombok.version>
+		<mysql.version>5.1.43</mysql.version>
+		<okhttp.version>3.12.0</okhttp.version>
+		<swagger2.version>2.6.1</swagger2.version>
+		<druid.version>1.0.28</druid.version>
+		<fastjson.version>1.2.31</fastjson.version>
+		<org.mapstruct.version>1.1.0.Final</org.mapstruct.version>
+		<boot.admin.version>1.5.6</boot.admin.version>
+		<modelmapper.version>1.1.2</modelmapper.version>
+		<eventbus.version>3.1.1</eventbus.version>
+		<org.json.version>20180130</org.json.version>
+		<velocity.version>1.6.4</velocity.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>${velocity.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.10.0</version>
+            <scope>compile</scope>
+        </dependency>
+		<dependency>
+			<groupId>com.prism</groupId>
+			<artifactId>backend-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<!--<scope>compile</scope>-->
+		</dependency>
+		<dependency>
+			<groupId>io.github.openfeign.form</groupId>
+			<artifactId>feign-form</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.openfeign.form</groupId>
+			<artifactId>feign-form-spring</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.3</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<!--dockerHost 指定 Docker Remote API 的远程访问地址-->
+					<!--<dockerHost>http://39.96.114.250:2375</dockerHost>-->
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+						<imageTag>latest</imageTag>
+					</imageTags>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>
