@@ -32,7 +32,7 @@
 		<modelmapper.version>1.1.2</modelmapper.version>
 		<eventbus.version>3.1.1</eventbus.version>
 		<org.json.version>20180130</org.json.version>
-		<velocity.version>1.6.4</velocity.version>
+		<velocity.version>1.7</velocity.version>
 	</properties>
 
 	<dependencies>
